@@ -1,0 +1,3987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectaMemorix - Professional Social Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #ef233c;
+            --verified: #0088cc;
+            --gold: #ffd700;
+            --gold-dark: #daa520;
+            --bg-color: #f5f7fa;
+            --text-color: #212529;
+            --card-bg: white;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --border-color: #e9ecef;
+        }
+
+        /* Dark mode variables */
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #f8f9fa;
+            --card-bg: #1e1e1e;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --border-color: #333;
+            --dark: #f8f9fa;
+            --light: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Auth Pages */
+        .auth-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .auth-left {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .auth-left h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .auth-left p {
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-bottom: 2rem;
+        }
+
+        .auth-features {
+            text-align: left;
+            max-width: 500px;
+        }
+
+        .auth-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-feature i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--accent);
+        }
+
+        .auth-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background-color: var(--bg-color);
+        }
+
+        .auth-form-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-form-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .auth-form-header p {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .auth-form {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .auth-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .auth-divider::before {
+            margin-right: 1rem;
+        }
+
+        .auth-divider::after {
+            margin-left: 1rem;
+        }
+
+        .social-auth {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .social-btn i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .social-btn.google {
+            color: #DB4437;
+        }
+
+        .social-btn.facebook {
+            color: #4267B2;
+        }
+
+        .social-btn.twitter {
+            color: #1DA1F2;
+        }
+
+        /* Professional Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 5%;
+            background: var(--card-bg);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+
+        .search-bar {
+            display: flex;
+            width: 40%;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            outline: none;
+            font-size: 0.9rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            padding: 0 1rem;
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            display: flex;
+            flex: 1;
+            padding: 1.5rem 5%;
+            gap: 1.5rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            flex: 2;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Settings Section */
+        .settings-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .settings-section {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .settings-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .settings-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-item-info {
+            flex: 1;
+        }
+
+        .settings-item-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text-color);
+        }
+
+        .settings-item-desc {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Toggle switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-left: 1rem;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Account settings */
+        .account-settings {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .account-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 2px solid var(--primary);
+        }
+
+        .account-info {
+            flex: 1;
+        }
+
+        .account-name {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .account-email {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .btn {
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-color);
+        }
+
+        /* Home Feed - Video Section */
+        .video-feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .creator-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .creator-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 0.8rem;
+            border: 2px solid var(--light);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .creator-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            background: var(--verified);
+            border-radius: 50%;
+            margin-left: 0.3rem;
+            color: white;
+            font-size: 0.6rem;
+            position: relative;
+        }
+
+        .verified-badge::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, #fff 0%, transparent 30%);
+            opacity: 0.5;
+            border-radius: 50%;
+        }
+
+        .verified-badge i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-caption {
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .video-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .video-stats span {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .video-stats span:hover {
+            color: var(--primary);
+        }
+
+        .video-stats i {
+            margin-right: 0.3rem;
+        }
+
+        .liked {
+            color: var(--accent);
+        }
+
+        /* Reels Section */
+        .reels-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .reel-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .reel-video-container {
+            position: relative;
+            padding-top: 177.78%; /* 9:16 Aspect Ratio for vertical video */
+            background: #000;
+        }
+
+        .reel-video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .reel-actions {
+            position: absolute;
+            right: 1rem;
+            bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        .reel-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .reel-action i {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .reel-action span {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .reel-info {
+            padding: 1rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .reel-caption {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .reel-music {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
+        .reel-music i {
+            margin-right: 0.5rem;
+        }
+
+        /* Comment Modal */
+        .comment-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .comment-container {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .comment-title {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .close-comment {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .comment-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .comment-item {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 0.8rem;
+        }
+
+        .comment-text {
+            background: var(--bg-color);
+            padding: 0.8rem;
+            border-radius: 8px;
+            flex: 1;
+        }
+
+        .comment-user {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text-color);
+        }
+
+        .comment-input-area {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .comment-input {
+            display: flex;
+            align-items: center;
+        }
+
+        .comment-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            outline: none;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .comment-submit {
+            margin-left: 0.8rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Share Modal */
+        .share-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .share-container {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .share-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .share-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        .close-share {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .share-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.8rem;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .share-option:hover {
+            background: var(--bg-color);
+        }
+
+        .share-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .share-label {
+            font-size: 0.8rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .share-link {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .share-link input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px 0 0 6px;
+            outline: none;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .copy-link {
+            padding: 0 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+        }
+
+        /* Discover Section */
+        .discover-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .discover-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .discover-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .discover-info {
+            padding: 1rem;
+        }
+
+        .discover-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .discover-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Create Post Section */
+        .create-post-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .post-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-action-btn {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            background: var(--bg-color);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-color);
+        }
+
+        .post-action-btn:hover {
+            background: var(--border-color);
+        }
+
+        .post-action-btn i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .media-preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .media-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .remove-media {
+            position: absolute;
+            top: 0.3rem;
+            right: 0.3rem;
+            width: 24px;
+            height: 24px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .post-submit-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .post-submit-btn:hover {
+            background: var(--secondary);
+        }
+
+        /* Messages Section */
+        .messages-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            height: calc(100vh - 200px);
+            display: flex;
+        }
+
+        .conversation-list {
+            width: 300px;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+
+        .conversation-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .conversation-item {
+            display: flex;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .conversation-item:hover {
+            background: var(--bg-color);
+        }
+
+        .conversation-item.active {
+            background: var(--bg-color);
+        }
+
+        .conversation-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 0.8rem;
+        }
+
+        .conversation-info {
+            flex: 1;
+        }
+
+        .conversation-user {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--text-color);
+        }
+
+        .conversation-preview {
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .conversation-time {
+            font-size: 0.75rem;
+            color: var(--text-color);
+            opacity: 0.6;
+            margin-top: 0.3rem;
+        }
+
+        .message-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .message-user {
+            font-weight: 600;
+            margin-left: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .message-content {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background: var(--bg-color);
+        }
+
+        .message {
+            max-width: 75%;
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .message.received {
+            background: var(--card-bg);
+            align-self: flex-start;
+            border-top-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            color: var(--text-color);
+        }
+
+        .message.sent {
+            background: var(--primary);
+            color: white;
+            align-self: flex-end;
+            border-top-right-radius: 4px;
+        }
+
+        .message-input-container {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--card-bg);
+        }
+
+        .message-input {
+            display: flex;
+        }
+
+        .message-input input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            outline: none;
+            font-size: 0.95rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .message-input button {
+            margin-left: 0.8rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Profile Section */
+        .profile-header {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header.admin {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0b3 100%);
+            border: 1px solid var(--gold);
+        }
+
+        .profile-header.admin::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark), var(--gold));
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--primary);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.2);
+            position: relative;
+        }
+
+        .profile-avatar.admin {
+            border-color: var(--gold);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.3);
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+        }
+
+        .profile-username {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-role {
+            background: var(--gold);
+            color: #333;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .profile-bio {
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            color: var(--text-color);
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .profile-tab.active {
+            color: var(--primary);
+            opacity: 1;
+        }
+
+        .profile-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .profile-content {
+            display: none;
+        }
+
+        .profile-content.active {
+            display: block;
+        }
+
+        .profile-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .profile-post {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .post-meta {
+            padding: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+            max-width: 320px;
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card.admin {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0b3 100%);
+            border: 1px solid var(--gold);
+        }
+
+        .profile-card.admin::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark), var(--gold));
+        }
+
+        .profile-avatar-sm {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-avatar-sm.admin {
+            border-color: var(--gold);
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+        }
+
+        .profile-name-sm {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--text-color);
+        }
+
+        .profile-username-sm {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-role-sm {
+            background: var(--gold);
+            color: #333;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .profile-bio-sm {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-stats-sm {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item-sm {
+            text-align: center;
+        }
+
+        .stat-number-sm {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .stat-label-sm {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .edit-profile-btn {
+            display: block;
+            width: 100%;
+            padding: 0.6rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .edit-profile-btn.admin {
+            background: var(--gold-dark);
+        }
+
+        .edit-profile-btn:hover {
+            background: var(--secondary);
+        }
+
+        .edit-profile-btn.admin:hover {
+            background: var(--gold);
+        }
+
+        .sidebar-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Suggested Users */
+        .suggested-user {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 0;
+            margin-bottom: 0.6rem;
+        }
+
+        .suggested-user:last-child {
+            margin-bottom: 0;
+        }
+
+        .suggested-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 0.8rem;
+        }
+
+        .suggested-info {
+            flex: 1;
+        }
+
+        .suggested-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .suggested-bio {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .follow-btn {
+            padding: 0.3rem 0.8rem;
+            background: var(--bg-color);
+            color: var(--primary);
+            border: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .follow-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .following {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Trending Hashtags */
+        .hashtag-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .hashtag-item:hover .hashtag-name {
+            color: var(--secondary);
+        }
+
+        .hashtag-item:last-child {
+            border-bottom: none;
+        }
+
+        .hashtag-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .hashtag-count {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            margin: 5% auto;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.4s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--danger);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            background: var(--bg-color);
+            outline: none;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.8rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-color);
+        }
+
+        /* Profile Edit Modal */
+        .avatar-upload {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.8rem;
+            border: 3px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar-preview.admin {
+            border-color: var(--gold);
+        }
+
+        .upload-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--bg-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-color);
+        }
+
+        .upload-btn:hover {
+            background: var(--border-color);
+        }
+
+        /* Notification Settings Modal */
+        .notification-settings {
+            padding: 1rem 0;
+        }
+
+        .notification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Privacy Settings Modal */
+        .privacy-settings {
+            padding: 1rem 0;
+        }
+
+        .privacy-item {
+            margin-bottom: 1.2rem;
+        }
+
+        .privacy-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .privacy-select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Change Password Modal */
+        .password-form {
+            padding: 1rem 0;
+        }
+
+        /* Two-Factor Auth Modal */
+        .two-factor-content {
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        .two-factor-qr {
+            width: 200px;
+            height: 200px;
+            margin: 1rem auto;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+        }
+
+        .two-factor-code {
+            font-family: monospace;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: var(--bg-color);
+            border-radius: 4px;
+        }
+
+        /* Help Center Modal */
+        .help-center-content {
+            padding: 1rem 0;
+        }
+
+        .help-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .help-item:last-child {
+            border-bottom: none;
+        }
+
+        .help-question {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .help-answer {
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        /* Report Problem Modal */
+        .report-form {
+            padding: 1rem 0;
+        }
+
+        .report-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: vertical;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .auth-container {
+                flex-direction: column;
+            }
+            
+            .auth-left {
+                padding: 2rem 1rem;
+            }
+            
+            .auth-right {
+                padding: 2rem 1rem;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                max-width: 100%;
+                order: -1;
+                margin-bottom: 1.5rem;
+            }
+            
+            .search-bar {
+                width: 60%;
+            }
+
+            .messages-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .conversation-list {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .share-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem;
+            }
+            
+            .logo span {
+                display: none;
+            }
+            
+            .search-bar {
+                flex: 1;
+                margin: 0 0.8rem;
+            }
+            
+            .video-feed, .discover-grid, .profile-posts {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 2% auto;
+                width: 95%;
+            }
+
+            .profile-stats, .profile-stats-sm {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .stat-item, .stat-item-sm {
+                flex: 1 0 30%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Pages (Initially shown) -->
+    <div class="auth-container" id="auth-container">
+        <div class="auth-left">
+            <h1>Welcome to ConnectaMemorix</h1>
+            <p>Connect with Family, share your memories, feelings, and grow your connection,love, joy with your loved ones.</p>
+            
+            <div class="auth-features">
+                <div class="auth-feature">
+                    <i class="fas fa-network-wired"></i>
+                    <div>
+                        <h3>Professional Networking</h3>
+                        <p>Connect with like-minded people, share content and grow your connection</p>
+                    </div>
+                </div>
+                <div class="auth-feature">
+                    <i class="fas fa-bullhorn"></i>
+                    <div>
+                        <h3>Showcase Your Work</h3>
+                        <p>Share your projects and achievements with family from anywhere.</p>
+                    </div>
+                </div>
+                <div class="auth-feature">
+                    <i class="fas fa-chart-line"></i>
+                    <div>
+                        <h3>Grow Your friendship and connection with people around the world</h3>
+                        <p>Build your memories with friends fromanywhereacrosstheworld</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Login Form (Default) -->
+        <div class="auth-right" id="login-section">
+            <div class="auth-form-container">
+                <div class="auth-form-header">
+                    <h2>Login to ConnectaMemorix</h2>
+                    <p>Welcome back! Please enter your details</p>
+                </div>
+                
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Login</button>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+                    </div>
+                    
+                    <div class="auth-divider">or</div>
+                    
+                    <div class="social-auth">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i> Continue with Google
+                        </button>
+                        <button type="button" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i> Continue with Facebook
+                        </button>
+                        <button type="button" class="social-btn twitter">
+                            <i class="fab fa-twitter"></i> Continue with Twitter
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Signup Form (Hidden by default) -->
+        <div class="auth-right" id="signup-section" style="display: none;">
+            <div class="auth-form-container">
+                <div class="auth-form-header">
+                    <h2>Join ConnectaMemorix</h2>
+                    <p>Create your professional account to get started</p>
+                </div>
+                
+                <form class="auth-form" id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="Create a password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-confirm-password">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" placeholder="Confirm your password" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Create Account</button>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+                    </div>
+                    
+                    <div class="auth-divider">or</div>
+                    
+                    <div class="social-auth">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i> Continue with Google
+                        </button>
+                        <button type="button" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i> Continue with Facebook
+                        </button>
+                        <button type="button" class="social-btn twitter">
+                            <i class="fab fa-twitter"></i> Continue with Twitter
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App (Initially hidden) -->
+    <div class="app-container" id="app-container" style="display: none;">
+        <!-- Professional Navigation Bar -->
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                <span>ConnectaMemorix</span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search videos, people, hashtags...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="active" data-tab="home"><i class="fas fa-home"></i></a>
+                <a href="#reels" data-tab="reels"><i class="fas fa-film"></i></a>
+                <a href="#discover" data-tab="discover"><i class="fas fa-compass"></i></a>
+                <a href="#create" data-tab="create"><i class="fas fa-plus-square"></i></a>
+                <a href="#messages" data-tab="messages"><i class="fas fa-comment-dots"></i></a>
+                <a href="#profile" data-tab="profile"><i class="fas fa-user"></i></a>
+                <a href="#settings" data-tab="settings"><i class="fas fa-cog"></i></a>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Home Feed -->
+            <div class="content-section active" id="home-section">
+                <div class="video-feed">
+                    <!-- Video Card 1 -->
+                    <div class="video-card" data-post-id="1">
+                        <div class="video-container">
+                            <video controls poster="https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2FtcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60">
+                                <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-info">
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Creator" class="creator-avatar">
+                                <div>
+                                    <span class="creator-name">@digitalcreator</span>
+                                    <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                </div>
+                            </div>
+                            <p class="video-caption">Just launched my new digital art series! Check it out and let me know what you think #digitalart #creative</p>
+                            <div class="video-stats">
+                                <span class="like-btn" data-post-id="1"><i class="fas fa-heart"></i> <span class="like-count">24.5K</span></span>
+                                <span class="comment-btn" data-post-id="1"><i class="fas fa-comment"></i> 1.2K</span>
+                                <span class="share-btn" data-post-id="1"><i class="fas fa-share"></i> 543</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Card 2 -->
+                    <div class="video-card" data-post-id="2">
+                        <div class="video-container">
+                            <video controls poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFuZHNjYXBlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60">
+                                <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-info">
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Creator" class="creator-avatar">
+                                <div>
+                                    <span class="creator-name">@travelholic</span>
+                                    <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                </div>
+                            </div>
+                            <p class="video-caption">Sunset views from Santorini 🌅 This place never gets old #travel #santorini #sunset</p>
+                            <div class="video-stats">
+                                <span class="like-btn" data-post-id="2"><i class="fas fa-heart"></i> <span class="like-count">56.7K</span></span>
+                                <span class="comment-btn" data-post-id="2"><i class="fas fa-comment"></i> 3.4K</span>
+                                <span class="share-btn" data-post-id="2"><i class="fas fa-share"></i> 1.2K</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Card 3 -->
+                    <div class="video-card" data-post-id="3">
+                        <div class="video-container">
+                            <video controls poster="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60">
+                                <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-info">
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Creator" class="creator-avatar">
+                                <div>
+                                    <span class="creator-name">@chefextra</span>
+                                    <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                </div>
+                            </div>
+                            <p class="video-caption">My signature pasta recipe that takes only 15 minutes to make! Full recipe in bio 👨‍🍳 #foodie #recipe</p>
+                            <div class="video-stats">
+                                <span class="like-btn" data-post-id="3"><i class="fas fa-heart"></i> <span class="like-count">89.2K</span></span>
+                                <span class="comment-btn" data-post-id="3"><i class="fas fa-comment"></i> 4.7K</span>
+                                <span class="share-btn" data-post-id="3"><i class="fas fa-share"></i> 2.1K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reels Section -->
+            <div class="content-section" id="reels-section">
+                <div class="reels-container">
+                    <!-- Reel 1 -->
+                    <div class="reel-card" data-reel-id="1">
+                        <div class="reel-video-container">
+                            <video controls>
+                                <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                            </video>
+                            <div class="reel-actions">
+                                <div class="reel-action">
+                                    <i class="fas fa-heart"></i>
+                                    <span>24.5K</span>
+                                </div>
+                                <div class="reel-action">
+                                    <i class="fas fa-comment"></i>
+                                    <span>1.2K</span>
+                                </div>
+                                <div class="reel-action">
+                                    <i class="fas fa-share"></i>
+                                    <span>543</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reel-info">
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Creator" class="creator-avatar">
+                                <div>
+                                    <span class="creator-name">@digitalcreator</span>
+                                    <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                </div>
+                            </div>
+                            <div class="reel-caption">
+                                <p>Just launched my new digital art series! Check it out and let me know what you think #digitalart #creative</p>
+                                <div class="reel-music">
+                                    <i class="fas fa-music"></i>
+                                    <span>Original Sound - Digital Creator</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reel 2 -->
+                    <div class="reel-card" data-reel-id="2">
+                        <div class="reel-video-container">
+                            <video controls>
+                                <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                            </video>
+                            <div class="reel-actions">
+                                <div class="reel-action">
+                                    <i class="fas fa-heart"></i>
+                                    <span>56.7K</span>
+                                </div>
+                                <div class="reel-action">
+                                    <i class="fas fa-comment"></i>
+                                    <span>3.4K</span>
+                                </div>
+                                <div class="reel-action">
+                                    <i class="fas fa-share"></i>
+                                    <span>1.2K</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reel-info">
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Creator" class="creator-avatar">
+                                <div>
+                                    <span class="creator-name">@travelholic</span>
+                                    <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                </div>
+                            </div>
+                            <div class="reel-caption">
+                                <p>Sunset views from Santorini 🌅 This place never gets old #travel #santorini #sunset</p>
+                                <div class="reel-music">
+                                    <i class="fas fa-music"></i>
+                                    <span>Original Sound - Travel Holic</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reel 3 -->
+                    <div class="reel-card" data-reel-id="3">
+                        <div class="reel-video-container">
+                            <video controls>
+                                <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                            </video>
+                            <div class="reel-actions">
+                                <div class="reel-action">
+                                    <i class="fas fa-heart"></i>
+                                    <span>89.2K</span>
+                                </div>
+                                <div class="reel-action">
+                                    <i class="fas fa-comment"></i>
+                                    <span>4.7K</span>
+                                </div>
+                                <div class="reel-action">
+                                    <i class="fas fa-share"></i>
+                                    <span>2.1K</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reel-info">
+                            <div class="creator-info">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Creator" class="creator-avatar">
+                                <div>
+                                    <span class="creator-name">@chefextra</span>
+                                    <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                </div>
+                            </div>
+                            <div class="reel-caption">
+                                <p>My signature pasta recipe that takes only 15 minutes to make! Full recipe in bio 👨‍🍳 #foodie #recipe</p>
+                                <div class="reel-music">
+                                    <i class="fas fa-music"></i>
+                                    <span>Original Sound - Chef Extra</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discover Section -->
+            <div class="content-section" id="discover-section">
+                <h2 style="margin-bottom: 1.5rem;">Discover New Content</h2>
+                <div class="discover-grid">
+                    <!-- Discover Card 1 -->
+                    <div class="discover-card">
+                        <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVjaHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Tech">
+                        <div class="discover-info">
+                            <h3 class="discover-title">Tech Innovations 2023</h3>
+                            <p>Explore the latest in technology and innovation</p>
+                            <div class="discover-meta">
+                                <span><i class="fas fa-eye"></i> 24.5K views</span>
+                                <span><i class="fas fa-hashtag"></i> #Tech</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Discover Card 2 -->
+                    <div class="discover-card">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Food">
+                        <div class="discover-info">
+                            <h3 class="discover-title">Food Trends</h3>
+                            <p>Discover what's hot in the culinary world</p>
+                            <div class="discover-meta">
+                                <span><i class="fas fa-eye"></i> 18.3K views</span>
+                                <span><i class="fas fa-hashtag"></i> #Foodie</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Discover Card 3 -->
+                    <div class="discover-card">
+                        <img src="https://images.unsplash.com/photo-1470114716159-e389f8712fda?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Travel">
+                        <div class="discover-info">
+                            <h3 class="discover-title">Hidden Travel Gems</h3>
+                            <p>Places you've never heard of but need to visit</p>
+                            <div class="discover-meta">
+                                <span><i class="fas fa-eye"></i> 32.1K views</span>
+                                <span><i class="fas fa-hashtag"></i> #Travel</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Discover Card 4 -->
+                    <div class="discover-card">
+                        <img src="https://images.unsplash.com/photo-1541532713592-79a0317b6b77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bXVzaWN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Music">
+                        <div class="discover-info">
+                            <h3 class="discover-title">Emerging Artists</h3>
+                            <p>New music you should be listening to</p>
+                            <div class="discover-meta">
+                                <span><i class="fas fa-eye"></i> 12.7K views</span>
+                                <span><i class="fas fa-hashtag"></i> #Music</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create Post Section -->
+            <div class="content-section" id="create-section">
+                <div class="create-post-container">
+                    <h2 style="margin-bottom: 1.5rem;">Create New Post</h2>
+                    <textarea class="post-input" placeholder="What's on your mind?"></textarea>
+                    
+                    <div class="post-actions">
+                        <button class="post-action-btn" id="add-photo-btn">
+                            <i class="fas fa-image"></i> Photo
+                            <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+                        </button>
+                        <button class="post-action-btn" id="add-video-btn">
+                            <i class="fas fa-video"></i> Video
+                            <input type="file" id="video-upload" accept="video/*" style="display: none;">
+                        </button>
+                        <button class="post-action-btn" id="add-location-btn">
+                            <i class="fas fa-map-marker-alt"></i> Location
+                        </button>
+                        <button class="post-action-btn" id="add-tag-btn">
+                            <i class="fas fa-hashtag"></i> Tag
+                        </button>
+                    </div>
+                    
+                    <div class="media-preview" id="media-preview">
+                        <!-- Media preview will be added here -->
+                    </div>
+                    
+                    <button class="post-submit-btn" id="post-submit-btn">Post</button>
+                </div>
+            </div>
+
+            <!-- Messages Section -->
+            <div class="content-section" id="messages-section">
+                <div class="messages-container">
+                    <div class="conversation-list">
+                        <div class="conversation-header">Messages</div>
+                        
+                        <div class="conversation-item active">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="conversation-avatar">
+                            <div class="conversation-info">
+                                <div class="conversation-user">
+                                    @digitalcreator <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                </div>
+                                <div class="conversation-preview">Hey! I wanted to ask about the upcoming event...</div>
+                                <div class="conversation-time">10 min ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-item">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User" class="conversation-avatar">
+                            <div class="conversation-info">
+                                <div class="conversation-user">@designmaster</div>
+                                <div class="conversation-preview">Here are the design mockups you requested</div>
+                                <div class="conversation-time">1 hour ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="conversation-item">
+                            <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="User" class="conversation-avatar">
+                            <div class="conversation-info">
+                                <div class="conversation-user">
+                                    @businessguru <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                </div>
+                                <div class="conversation-preview">Let's schedule a meeting next week</div>
+                                <div class="conversation-time">3 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message-area">
+                        <div class="message-header">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="conversation-avatar">
+                            <div class="message-user">
+                                @digitalcreator <span class="verified-badge"><i class="fas fa-check"></i></span>
+                            </div>
+                        </div>
+                        
+                        <div class="message-content">
+                            <div class="message received">
+                                Hey there! I wanted to ask about the upcoming platform updates you mentioned.
+                            </div>
+                            <div class="message sent">
+                                Hi! Yes, we're rolling out new features next week including enhanced analytics.
+                            </div>
+                            <div class="message received">
+                                That's great! Will there be any changes to the content moderation tools?
+                            </div>
+                            <div class="message sent">
+                                Yes, we're introducing more granular controls for creators. I can send you the details.
+                            </div>
+                        </div>
+                        
+                        <div class="message-input-container">
+                            <div class="message-input">
+                                <input type="text" placeholder="Type a message...">
+                                <button><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="content-section" id="profile-section">
+                <div class="profile-header admin">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-avatar admin">
+                    <h1 class="profile-name">Francis Masereka</h1>
+                    <p class="profile-username">@info9 <span class="verified-badge"><i class="fas fa-check"></i></span></p>
+                    <p class="profile-role">CEO & Founder</p>
+                    <p class="profile-bio">Platform Administrator | Tech Enthusiast | Content Creator</p>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">1.2K</div>
+                            <div class="stat-label">Followers</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">356</div>
+                            <div class="stat-label">Following</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">48</div>
+                            <div class="stat-label">Posts</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-tabs">
+                    <div class="profile-tab active" data-tab="posts">Posts</div>
+                    <div class="profile-tab" data-tab="saved">Saved</div>
+                    <div class="profile-tab" data-tab="tagged">Tagged</div>
+                    <div class="profile-tab" data-tab="reels">Reels</div>
+                </div>
+                
+                <div class="profile-content active" id="posts-content">
+                    <div class="profile-posts">
+                        <div class="profile-post">
+                            <img src="https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2FtcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Post">
+                            <div class="post-meta">
+                                <span><i class="fas fa-heart"></i> 245</span>
+                                <span><i class="fas fa-comment"></i> 32</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-post">
+                            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFuZHNjYXBlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Post">
+                            <div class="post-meta">
+                                <span><i class="fas fa-heart"></i> 567</span>
+                                <span><i class="fas fa-comment"></i> 42</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-post">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Post">
+                            <div class="post-meta">
+                                <span><i class="fas fa-heart"></i> 892</span>
+                                <span><i class="fas fa-comment"></i> 47</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-content" id="saved-content">
+                    <div class="profile-posts">
+                        <div class="profile-post">
+                            <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVjaHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Saved">
+                            <div class="post-meta">
+                                <span><i class="fas fa-bookmark"></i> Saved</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-post">
+                            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Saved">
+                            <div class="post-meta">
+                                <span><i class="fas fa-bookmark"></i> Saved</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-content" id="tagged-content">
+                    <div class="profile-posts">
+                        <div class="profile-post">
+                            <img src="https://images.unsplash.com/photo-1470114716159-e389f8712fda?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Tagged">
+                            <div class="post-meta">
+                                <span><i class="fas fa-tag"></i> Tagged</span>
+                                <span>by @travelholic</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-content" id="reels-content">
+                    <div class="reels-container">
+                        <div class="reel-card" data-reel-id="4">
+                            <div class="reel-video-container">
+                                <video controls>
+                                    <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                                </video>
+                                <div class="reel-actions">
+                                    <div class="reel-action">
+                                        <i class="fas fa-heart"></i>
+                                        <span>12.3K</span>
+                                    </div>
+                                    <div class="reel-action">
+                                        <i class="fas fa-comment"></i>
+                                        <span>856</span>
+                                    </div>
+                                    <div class="reel-action">
+                                        <i class="fas fa-share"></i>
+                                        <span>321</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reel-info">
+                                <div class="creator-info">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Creator" class="creator-avatar">
+                                    <div>
+                                        <span class="creator-name">@info9</span>
+                                        <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                    </div>
+                                </div>
+                                <div class="reel-caption">
+                                    <p>Behind the scenes of our latest platform update! #tech #update</p>
+                                    <div class="reel-music">
+                                        <i class="fas fa-music"></i>
+                                        <span>Original Sound - ConnectaMemorix</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="content-section" id="settings-section">
+                <div class="settings-container">
+                    <div class="account-settings">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="account-avatar admin">
+                        <div class="account-info">
+                            <h3 class="account-name">Francis Masereka</h3>
+                            <p class="account-email">maserekafrancis81@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3 class="settings-title">Account Settings</h3>
+                        
+                        <div class="settings-item">
+                            <div class="settings-item-info">
+                                <h4 class="settings-item-title">Dark Mode</h4>
+                                <p class="settings-item-desc">Switch between light and dark theme</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="dark-mode-toggle">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-item-info">
+                                <h4 class="settings-item-title">Notifications</h4>
+                                <p class="settings-item-desc">Manage your notification preferences</p>
+                            </div>
+                            <button class="btn btn-outline" id="notification-settings-btn">Manage</button>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-item-info">
+                                <h4 class="settings-item-title">Privacy</h4>
+                                <p class="settings-item-desc">Control who can see your content</p>
+                            </div>
+                            <button class="btn btn-outline" id="privacy-settings-btn">Settings</button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3 class="settings-title">Security</h3>
+                        
+                        <div class="settings-item">
+                            <div class="settings-item-info">
+                                <h4 class="settings-item-title">Change Password</h4>
+                                <p class="settings-item-desc">Update your account password</p>
+                            </div>
+                            <button class="btn btn-outline" id="change-password-btn">Change</button>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-item-info">
+                                <h4 class="settings-item-title">Two-Factor Authentication</h4>
+                                <p class="settings-item-desc">Add an extra layer of security</p>
+                            </div>
+                            <button class="btn btn-outline" id="two-factor-btn">Enable</button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3 class="settings-title">Support</h3>
+                        
+                        <div class="settings-item">
+                            <div class="settings-item-info">
+                                <h4 class="settings-item-title">Help Center</h4>
+                                <p class="settings-item-desc">Get help with using ConnectaMemorix</p>
+                            </div>
+                            <button class="btn btn-outline" id="help-center-btn">Visit</button>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="settings-item-info">
+                                <h4 class="settings-item-title">Report a Problem</h4>
+                                <p class="settings-item-desc">Let us know about any issues</p>
+                            </div>
+                            <button class="btn btn-outline" id="report-problem-btn">Report</button>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <button class="btn btn-outline" id="logout-btn" style="width: 100%;">
+                            <i class="fas fa-sign-out-alt"></i> Log Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="profile-card admin">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="profile-avatar-sm admin">
+                    <h3 class="profile-name-sm">Francis Masereka</h3>
+                    <p class="profile-username-sm">@info9 <span class="verified-badge"><i class="fas fa-check"></i></span></p>
+                    <p class="profile-role-sm">CEO & Founder</p>
+                    <p class="profile-bio-sm">Platform Administrator | Tech Enthusiast | Content Creator</p>
+                    
+                    <div class="profile-stats-sm">
+                        <div class="stat-item-sm">
+                            <div class="stat-number-sm">1.2K</div>
+                            <div class="stat-label-sm">Followers</div>
+                        </div>
+                        <div class="stat-item-sm">
+                            <div class="stat-number-sm">356</div>
+                            <div class="stat-label-sm">Following</div>
+                        </div>
+                        <div class="stat-item-sm">
+                            <div class="stat-number-sm">48</div>
+                            <div class="stat-label-sm">Posts</div>
+                        </div>
+                    </div>
+                    
+                    <button class="edit-profile-btn admin" id="edit-profile-btn">Edit Profile</button>
+                </div>
+                
+                <!-- Suggested Connections -->
+                <div class="sidebar-section">
+                    <h3 class="section-title"><i class="fas fa-user-plus"></i> Suggested Connections</h3>
+                    <div class="suggested-user">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="User" class="suggested-avatar">
+                        <div class="suggested-info">
+                            <div class="suggested-name">@techinnovator <span class="verified-badge"><i class="fas fa-check"></i></span></div>
+                            <div class="suggested-bio">AI Researcher | Tech Speaker</div>
+                        </div>
+                        <button class="follow-btn" data-user="techinnovator">Follow</button>
+                    </div>
+                    <div class="suggested-user">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User" class="suggested-avatar">
+                        <div class="suggested-info">
+                            <div class="suggested-name">@designmaster</div>
+                            <div class="suggested-bio">UI/UX Designer</div>
+                        </div>
+                        <button class="follow-btn" data-user="designmaster">Follow</button>
+                    </div>
+                    <div class="suggested-user">
+                        <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="User" class="suggested-avatar">
+                        <div class="suggested-info">
+                            <div class="suggested-name">@businessguru <span class="verified-badge"><i class="fas fa-check"></i></span></div>
+                            <div class="suggested-bio">Entrepreneur | Mentor</div>
+                        </div>
+                        <button class="follow-btn" data-user="businessguru">Follow</button>
+                    </div>
+                </div>
+                
+                <!-- Trending Hashtags -->
+                <div class="sidebar-section">
+                    <h3 class="section-title"><i class="fas fa-hashtag"></i> Trending Now</h3>
+                    <div class="hashtag-item">
+                        <span class="hashtag-name">#TechInnovation</span>
+                        <span class="hashtag-count">24.5K posts</span>
+                    </div>
+                    <div class="hashtag-item">
+                        <span class="hashtag-name">#DigitalTransformation</span>
+                        <span class="hashtag-count">18.2K posts</span>
+                    </div>
+                    <div class="hashtag-item">
+                        <span class="hashtag-name">#RemoteWork</span>
+                        <span class="hashtag-count">15.7K posts</span>
+                    </div>
+                    <div class="hashtag-item">
+                        <span class="hashtag-name">#StartupLife</span>
+                        <span class="hashtag-count">12.3K posts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comment Modal -->
+        <div class="comment-modal" id="comment-modal">
+            <div class="comment-container">
+                <div class="comment-header">
+                    <div class="comment-title">Comments</div>
+                    <button class="close-comment">&times;</button>
+                </div>
+                <div class="comment-content">
+                    <div class="comment-item">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="comment-avatar">
+                        <div class="comment-text">
+                            <div class="comment-user">@info9 <span class="verified-badge"><i class="fas fa-check"></i></span></div>
+                            <p>This is amazing content! Keep it up!</p>
+                        </div>
+                    </div>
+                    <div class="comment-item">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="comment-avatar">
+                        <div class="comment-text">
+                            <div class="comment-user">@digitalcreator <span class="verified-badge"><i class="fas fa-check"></i></span></div>
+                            <p>Thanks for sharing this valuable information!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-input-area">
+                    <div class="comment-input">
+                        <input type="text" placeholder="Add a comment...">
+                        <button class="comment-submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Share Modal -->
+        <div class="share-modal" id="share-modal">
+            <div class="share-container">
+                <div class="share-header">
+                    <div class="share-title">Share this post</div>
+                    <button class="close-share">&times;</button>
+                </div>
+                <div class="share-options">
+                    <div class="share-option">
+                        <div class="share-icon"><i class="fab fa-facebook-f"></i></div>
+                        <div class="share-label">Facebook</div>
+                    </div>
+                    <div class="share-option">
+                        <div class="share-icon"><i class="fab fa-twitter"></i></div>
+                        <div class="share-label">Twitter</div>
+                    </div>
+                    <div class="share-option">
+                        <div class="share-icon"><i class="fab fa-linkedin-in"></i></div>
+                        <div class="share-label">LinkedIn</div>
+                    </div>
+                    <div class="share-option">
+                        <div class="share-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="share-label">WhatsApp</div>
+                    </div>
+                </div>
+                <div class="share-link">
+                    <input type="text" value="https://connectamemorix.com/post/123" id="share-url" readonly>
+                    <button class="copy-link" id="copy-link">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal" id="edit-profile-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Profile</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-profile-form">
+                        <div class="avatar-upload">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="avatar-preview admin" id="avatar-preview">
+                            <label for="avatar-upload" class="upload-btn">
+                                <i class="fas fa-camera"></i> Change Photo
+                            </label>
+                            <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-name" class="form-label">Full Name</label>
+                            <input type="text" id="edit-name" class="form-control" value="Francis Masereka">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-username" class="form-label">Username</label>
+                            <input type="text" id="edit-username" class="form-control" value="info9" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-bio" class="form-label">Bio</label>
+                            <textarea id="edit-bio" class="form-control" rows="3">Platform Administrator | Tech Enthusiast | Content Creator</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-email" class="form-label">Email</label>
+                            <input type="email" id="edit-email" class="form-control" value="maserekafrancis81@gmail.com">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" id="cancel-edit">Cancel</button>
+                    <button class="btn btn-primary" id="save-profile">Save Changes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Settings Modal -->
+        <div class="modal" id="notification-settings-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Notification Settings</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="notification-settings">
+                        <div class="notification-item">
+                            <span class="notification-label">New Followers</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="follower-notifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="notification-item">
+                            <span class="notification-label">Likes on Your Posts</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="like-notifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="notification-item">
+                            <span class="notification-label">Comments on Your Posts</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="comment-notifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="notification-item">
+                            <span class="notification-label">Mentions</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="mention-notifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="notification-item">
+                            <span class="notification-label">Direct Messages</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="message-notifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="notification-item">
+                            <span class="notification-label">Email Notifications</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="email-notifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="save-notification-settings">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Settings Modal -->
+        <div class="modal" id="privacy-settings-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Privacy Settings</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="privacy-settings">
+                        <div class="privacy-item">
+                            <label class="privacy-label">Who can see your posts?</label>
+                            <select class="privacy-select" id="post-privacy">
+                                <option value="public">Public</option>
+                                <option value="connections">Connections Only</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+                        <div class="privacy-item">
+                            <label class="privacy-label">Who can send you messages?</label>
+                            <select class="privacy-select" id="message-privacy">
+                                <option value="everyone">Everyone</option>
+                                <option value="connections">Connections Only</option>
+                                <option value="none">No One</option>
+                            </select>
+                        </div>
+                        <div class="privacy-item">
+                            <label class="privacy-label">Who can see your connections?</label>
+                            <select class="privacy-select" id="connection-privacy">
+                                <option value="public">Public</option>
+                                <option value="connections">Connections Only</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+                        <div class="privacy-item">
+                            <label class="privacy-label">Show your activity status</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="activity-status" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="save-privacy-settings">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Change Password Modal -->
+        <div class="modal" id="change-password-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Change Password</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="password-form" id="password-form">
+                        <div class="form-group">
+                            <label for="current-password" class="form-label">Current Password</label>
+                            <input type="password" id="current-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password" class="form-label">New Password</label>
+                            <input type="password" id="new-password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password" class="form-label">Confirm New Password</label>
+                            <input type="password" id="confirm-password" class="form-control" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" id="cancel-password-change">Cancel</button>
+                    <button class="btn btn-primary" id="save-password">Change Password</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two-Factor Authentication Modal -->
+        <div class="modal" id="two-factor-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Two-Factor Authentication</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="two-factor-content">
+                        <p>Scan this QR code with your authenticator app (Google Authenticator, Authy, etc.) to enable two-factor authentication.</p>
+                        <div class="two-factor-qr">
+                            <i class="fas fa-qrcode" style="font-size: 3rem;"></i>
+                        </div>
+                        <p>Or enter this code manually:</p>
+                        <div class="two-factor-code">JBSWY3DPEHPK3PXP</div>
+                        <p>Enter the 6-digit code from your authenticator app to verify:</p>
+                        <input type="text" id="two-factor-code" class="form-control" placeholder="123456" maxlength="6" style="text-align: center;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" id="cancel-two-factor">Cancel</button>
+                    <button class="btn btn-primary" id="verify-two-factor">Verify & Enable</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Center Modal -->
+        <div class="modal" id="help-center-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Help Center</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="help-center-content">
+                        <div class="help-item">
+                            <div class="help-question">How do I create a post?</div>
+                            <div class="help-answer">Click on the "+" icon in the navigation bar to create a new post. You can add text, photos, videos, and more.</div>
+                        </div>
+                        <div class="help-item">
+                            <div class="help-question">How do I connect with other professionals?</div>
+                            <div class="help-answer">Visit profiles of users you want to connect with and click the "Follow" button. You can also search for specific professionals using the search bar.</div>
+                        </div>
+                        <div class="help-item">
+                            <div class="help-question">How do I change my account settings?</div>
+                            <div class="help-answer">Go to the Settings section (gear icon) to update your account preferences, privacy settings, and more.</div>
+                        </div>
+                        <div class="help-item">
+                            <div class="help-question">How do I report inappropriate content?</div>
+                            <div class="help-answer">Click on the three dots (...) on any post and select "Report". Our team will review the content promptly.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="close-help-center">Got it!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Problem Modal -->
+        <div class="modal" id="report-problem-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Report a Problem</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="report-form" id="report-form">
+                        <div class="form-group">
+                            <label for="report-type" class="form-label">Type of Problem</label>
+                            <select id="report-type" class="form-control">
+                                <option value="bug">Bug/Technical Issue</option>
+                                <option value="content">Inappropriate Content</option>
+                                <option value="account">Account Issue</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-description" class="form-label">Description</label>
+                            <textarea id="report-description" class="report-textarea" placeholder="Please describe the problem in detail..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-screenshot" class="form-label">Screenshot (optional)</label>
+                            <input type="file" id="report-screenshot" class="form-control" accept="image/*">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" id="cancel-report">Cancel</button>
+                    <button class="btn btn-primary" id="submit-report">Submit Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB2ADCQZuf_e-myddfHMelRQoKducub90c",
+            authDomain: "connectamemorix.firebaseapp.com",
+            projectId: "connectamemorix",
+            storageBucket: "connectamemorix.firebasestorage.app",
+            messagingSenderId: "29943376408",
+            appId: "1:29943376408:web:7be958389a361dbc5bf16d",
+            measurementId: "G-PPVTT09DSX"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+    </script>
+
+    <script>
+        // DOM Elements
+        const authContainer = document.getElementById('auth-container');
+        const appContainer = document.getElementById('app-container');
+        const loginSection = document.getElementById('login-section');
+        const signupSection = document.getElementById('signup-section');
+        const showSignup = document.getElementById('show-signup');
+        const showLogin = document.getElementById('show-login');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const loginEmail = document.getElementById('login-email');
+        const loginPassword = document.getElementById('login-password');
+        const signupName = document.getElementById('signup-name');
+        const signupEmail = document.getElementById('signup-email');
+        const signupPassword = document.getElementById('signup-password');
+        const signupConfirmPassword = document.getElementById('signup-confirm-password');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const contentSections = document.querySelectorAll('.content-section');
+        const profileTabs = document.querySelectorAll('.profile-tab');
+        const profileContents = document.querySelectorAll('.profile-content');
+        const editProfileBtn = document.getElementById('edit-profile-btn');
+        const editProfileModal = document.getElementById('edit-profile-modal');
+        const closeBtns = document.querySelectorAll('.close-btn');
+        const cancelEdit = document.getElementById('cancel-edit');
+        const saveProfile = document.getElementById('save-profile');
+        const avatarUpload = document.getElementById('avatar-upload');
+        const avatarPreview = document.getElementById('avatar-preview');
+        const likeButtons = document.querySelectorAll('.like-btn');
+        const commentButtons = document.querySelectorAll('.comment-btn');
+        const shareButtons = document.querySelectorAll('.share-btn');
+        const followButtons = document.querySelectorAll('.follow-btn');
+        const commentModal = document.getElementById('comment-modal');
+        const closeComment = document.querySelector('.close-comment');
+        const shareModal = document.getElementById('share-modal');
+        const closeShare = document.querySelector('.close-share');
+        const copyLink = document.getElementById('copy-link');
+        const shareUrl = document.getElementById('share-url');
+        const reelActionButtons = document.querySelectorAll('.reel-action');
+        const addPhotoBtn = document.getElementById('add-photo-btn');
+        const photoUpload = document.getElementById('photo-upload');
+        const addVideoBtn = document.getElementById('add-video-btn');
+        const videoUpload = document.getElementById('video-upload');
+        const addLocationBtn = document.getElementById('add-location-btn');
+        const addTagBtn = document.getElementById('add-tag-btn');
+        const mediaPreview = document.getElementById('media-preview');
+        const postSubmitBtn = document.getElementById('post-submit-btn');
+        const postInput = document.querySelector('.post-input');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+        // Settings modals and buttons
+        const notificationSettingsBtn = document.getElementById('notification-settings-btn');
+        const notificationSettingsModal = document.getElementById('notification-settings-modal');
+        const saveNotificationSettings = document.getElementById('save-notification-settings');
+        
+        const privacySettingsBtn = document.getElementById('privacy-settings-btn');
+        const privacySettingsModal = document.getElementById('privacy-settings-modal');
+        const savePrivacySettings = document.getElementById('save-privacy-settings');
+        
+        const changePasswordBtn = document.getElementById('change-password-btn');
+        const changePasswordModal = document.getElementById('change-password-modal');
+        const savePassword = document.getElementById('save-password');
+        const cancelPasswordChange = document.getElementById('cancel-password-change');
+        
+        const twoFactorBtn = document.getElementById('two-factor-btn');
+        const twoFactorModal = document.getElementById('two-factor-modal');
+        const verifyTwoFactor = document.getElementById('verify-two-factor');
+        const cancelTwoFactor = document.getElementById('cancel-two-factor');
+        
+        const helpCenterBtn = document.getElementById('help-center-btn');
+        const helpCenterModal = document.getElementById('help-center-modal');
+        const closeHelpCenter = document.getElementById('close-help-center');
+        
+        const reportProblemBtn = document.getElementById('report-problem-btn');
+        const reportProblemModal = document.getElementById('report-problem-modal');
+        const submitReport = document.getElementById('submit-report');
+        const cancelReport = document.getElementById('cancel-report');
+
+        // Current user data
+        const currentUser = {
+            username: 'info9',
+            password: 'Heavenly600',
+            name: 'Francis Masereka',
+            email: 'maserekafrancis81@gmail.com',
+            bio: 'Platform Administrator | Tech Enthusiast | Content Creator',
+            avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+            verified: true,
+            followers: 1250,
+            following: 356,
+            posts: 48,
+            role: 'CEO & Founder',
+            isAdmin: true,
+            notificationSettings: {
+                followers: true,
+                likes: true,
+                comments: true,
+                mentions: true,
+                messages: true,
+                emails: true
+            },
+            privacySettings: {
+                posts: 'public',
+                messages: 'everyone',
+                connections: 'public',
+                activityStatus: true
+            },
+            twoFactorEnabled: false
+        };
+
+        // Post data
+        const posts = {
+            1: { likes: 24500, liked: false, comments: 1200 },
+            2: { likes: 56700, liked: false, comments: 3400 },
+            3: { likes: 89200, liked: false, comments: 4700 }
+        };
+
+        // Reel data
+        const reels = {
+            1: { likes: 24500, liked: false, comments: 1200 },
+            2: { likes: 56700, liked: false, comments: 3400 },
+            3: { likes: 89200, liked: false, comments: 4700 },
+            4: { likes: 12300, liked: false, comments: 856 }
+        };
+
+        // Follow data
+        const following = {
+            techinnovator: false,
+            designmaster: false,
+            businessguru: false
+        };
+
+        // Media files to be uploaded
+        let mediaFiles = [];
+
+        // Check for saved theme preference
+        function checkThemePreference() {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+            }
+        }
+
+        // Toggle dark/light mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        // Initialize the app
+        function init() {
+            // Check theme preference
+            checkThemePreference();
+            
+            // Set home as active by default
+            document.querySelector('[data-tab="home"]').classList.add('active');
+            document.getElementById('home-section').classList.add('active');
+            
+            // Format like counts
+            formatLikeCounts();
+            
+            // Load notification settings
+            loadNotificationSettings();
+            
+            // Load privacy settings
+            loadPrivacySettings();
+        }
+
+        // Load notification settings
+        function loadNotificationSettings() {
+            document.getElementById('follower-notifications').checked = currentUser.notificationSettings.followers;
+            document.getElementById('like-notifications').checked = currentUser.notificationSettings.likes;
+            document.getElementById('comment-notifications').checked = currentUser.notificationSettings.comments;
+            document.getElementById('mention-notifications').checked = currentUser.notificationSettings.mentions;
+            document.getElementById('message-notifications').checked = currentUser.notificationSettings.messages;
+            document.getElementById('email-notifications').checked = currentUser.notificationSettings.emails;
+        }
+
+        // Load privacy settings
+        function loadPrivacySettings() {
+            document.getElementById('post-privacy').value = currentUser.privacySettings.posts;
+            document.getElementById('message-privacy').value = currentUser.privacySettings.messages;
+            document.getElementById('connection-privacy').value = currentUser.privacySettings.connections;
+            document.getElementById('activity-status').checked = currentUser.privacySettings.activityStatus;
+        }
+
+        // Format like counts to K notation
+        function formatLikeCounts() {
+            document.querySelectorAll('.like-count').forEach(span => {
+                const count = parseInt(span.textContent);
+                if (count >= 1000) {
+                    span.textContent = (count / 1000).toFixed(1) + 'K';
+                }
+            });
+        }
+
+        // Show login/signup forms
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginSection.style.display = 'none';
+            signupSection.style.display = 'flex';
+        });
+
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupSection.style.display = 'none';
+            loginSection.style.display = 'flex';
+        });
+
+        // Login functionality
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = loginEmail.value;
+            const password = loginPassword.value;
+            
+            // In a real app, you would authenticate with Firebase here
+            // For demo purposes, we'll just check against our admin credentials
+            if (email === currentUser.email && password === currentUser.password) {
+                authContainer.style.display = 'none';
+                appContainer.style.display = 'flex';
+                console.log('Admin logged in successfully');
+            } else {
+                alert('Invalid email or password');
+            }
+        });
+
+        // Signup functionality
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = signupName.value;
+            const email = signupEmail.value;
+            const password = signupPassword.value;
+            const confirmPassword = signupConfirmPassword.value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // In a real app, you would create a new user with Firebase here
+            console.log('Creating new user:', { name, email });
+            alert('Account created successfully! Please login.');
+            
+            // Switch to login form
+            signupSection.style.display = 'none';
+            loginSection.style.display = 'flex';
+            
+            // Clear form
+            signupForm.reset();
+        });
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', () => {
+            // In a real app, you would sign out with Firebase here
+            authContainer.style.display = 'flex';
+            appContainer.style.display = 'none';
+            loginSection.style.display = 'flex';
+            signupSection.style.display = 'none';
+            loginForm.reset();
+            console.log('User logged out');
+        });
+
+        // Tab navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tab = link.getAttribute('data-tab');
+                
+                // Update active nav link
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show corresponding content section
+                contentSections.forEach(section => section.classList.remove('active'));
+                document.getElementById(`${tab}-section`).classList.add('active');
+            });
+        });
+
+        // Profile tab navigation
+        profileTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Update active profile tab
+                profileTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show corresponding profile content
+                profileContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+
+        // Like button functionality
+        likeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const postId = button.getAttribute('data-post-id');
+                const post = posts[postId];
+                const icon = button.querySelector('i');
+                const countSpan = button.querySelector('.like-count');
+                
+                if (post.liked) {
+                    // Unlike
+                    post.likes -= 1;
+                    icon.classList.remove('liked');
+                    countSpan.textContent = formatNumber(post.likes);
+                } else {
+                    // Like
+                    post.likes += 1;
+                    icon.classList.add('liked');
+                    countSpan.textContent = formatNumber(post.likes);
+                }
+                
+                post.liked = !post.liked;
+            });
+        });
+
+        // Reel action button functionality
+        reelActionButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const reelCard = button.closest('.reel-card');
+                const reelId = reelCard.getAttribute('data-reel-id');
+                const reel = reels[reelId];
+                const actionType = button.querySelector('i').classList.contains('fa-heart') ? 'like' : 
+                                   button.querySelector('i').classList.contains('fa-comment') ? 'comment' : 'share';
+                
+                if (actionType === 'like') {
+                    const countSpan = button.querySelector('span');
+                    
+                    if (reel.liked) {
+                        // Unlike
+                        reel.likes -= 1;
+                        button.querySelector('i').classList.remove('liked');
+                        countSpan.textContent = formatNumber(reel.likes);
+                    } else {
+                        // Like
+                        reel.likes += 1;
+                        button.querySelector('i').classList.add('liked');
+                        countSpan.textContent = formatNumber(reel.likes);
+                    }
+                    
+                    reel.liked = !reel.liked;
+                } else if (actionType === 'comment') {
+                    commentModal.style.display = 'flex';
+                    console.log(`Viewing comments for reel ${reelId}`);
+                } else if (actionType === 'share') {
+                    shareUrl.value = `https://connectamemorix.com/reel/${reelId}`;
+                    shareModal.style.display = 'flex';
+                    console.log(`Sharing reel ${reelId}`);
+                }
+            });
+        });
+
+        // Format numbers with K notation
+        function formatNumber(num) {
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num;
+        }
+
+        // Comment button functionality
+        commentButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const postId = button.getAttribute('data-post-id');
+                commentModal.style.display = 'flex';
+                console.log(`Viewing comments for post ${postId}`);
+            });
+        });
+
+        // Share button functionality
+        shareButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const postId = button.getAttribute('data-post-id');
+                shareUrl.value = `https://connectamemorix.com/post/${postId}`;
+                shareModal.style.display = 'flex';
+                console.log(`Sharing post ${postId}`);
+            });
+        });
+
+        // Follow button functionality
+        followButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const username = button.getAttribute('data-user');
+                
+                if (following[username]) {
+                    // Unfollow
+                    button.classList.remove('following');
+                    button.textContent = 'Follow';
+                    currentUser.following -= 1;
+                } else {
+                    // Follow
+                    button.classList.add('following');
+                    button.textContent = 'Following';
+                    currentUser.following += 1;
+                }
+                
+                following[username] = !following[username];
+                
+                // Update following count
+                document.querySelectorAll('.stat-number-sm')[1].textContent = currentUser.following;
+                document.querySelectorAll('.stat-number')[1].textContent = currentUser.following;
+            });
+        });
+
+        // Close comment modal
+        closeComment.addEventListener('click', () => {
+            commentModal.style.display = 'none';
+        });
+
+        // Close share modal
+        closeShare.addEventListener('click', () => {
+            shareModal.style.display = 'none';
+        });
+
+        // Copy link functionality
+        copyLink.addEventListener('click', () => {
+            shareUrl.select();
+            document.execCommand('copy');
+            copyLink.textContent = 'Copied!';
+            setTimeout(() => {
+                copyLink.textContent = 'Copy';
+            }, 2000);
+        });
+
+        // Edit profile modal
+        editProfileBtn.addEventListener('click', () => {
+            // Populate form with current data
+            document.getElementById('edit-name').value = currentUser.name;
+            document.getElementById('edit-username').value = currentUser.username;
+            document.getElementById('edit-bio').value = currentUser.bio;
+            document.getElementById('edit-email').value = currentUser.email;
+            document.getElementById('avatar-preview').src = currentUser.avatar;
+            
+            editProfileModal.style.display = 'block';
+        });
+
+        // Close modals
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                editProfileModal.style.display = 'none';
+                notificationSettingsModal.style.display = 'none';
+                privacySettingsModal.style.display = 'none';
+                changePasswordModal.style.display = 'none';
+                twoFactorModal.style.display = 'none';
+                helpCenterModal.style.display = 'none';
+                reportProblemModal.style.display = 'none';
+            });
+        });
+
+        // Cancel edit
+        cancelEdit.addEventListener('click', () => {
+            editProfileModal.style.display = 'none';
+        });
+
+        // Save profile changes
+        saveProfile.addEventListener('click', () => {
+            currentUser.name = document.getElementById('edit-name').value;
+            currentUser.bio = document.getElementById('edit-bio').value;
+            currentUser.email = document.getElementById('edit-email').value;
+            
+            // Update profile display
+            document.querySelector('.profile-name').textContent = currentUser.name;
+            document.querySelector('.profile-name-sm').textContent = currentUser.name;
+            document.querySelector('.profile-bio').textContent = currentUser.bio;
+            document.querySelector('.profile-bio-sm').textContent = currentUser.bio;
+            document.querySelector('.profile-avatar').src = currentUser.avatar;
+            document.querySelector('.profile-avatar-sm').src = currentUser.avatar;
+            
+            editProfileModal.style.display = 'none';
+            
+            console.log('Profile updated:', currentUser);
+        });
+
+        // Avatar upload preview
+        avatarUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    avatarPreview.src = event.target.result;
+                    currentUser.avatar = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Add photo functionality
+        addPhotoBtn.addEventListener('click', () => {
+            photoUpload.click();
+        });
+
+        photoUpload.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            files.forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    mediaFiles.push(file);
+                    displayMediaPreview(file);
+                }
+            });
+        });
+
+        // Add video functionality
+        addVideoBtn.addEventListener('click', () => {
+            videoUpload.click();
+        });
+
+        videoUpload.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            files.forEach(file => {
+                if (file.type.startsWith('video/')) {
+                    mediaFiles.push(file);
+                    displayMediaPreview(file);
+                }
+            });
+        });
+
+        // Add location functionality
+        addLocationBtn.addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        const locationText = `📍 Location: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+                        
+                        // Append location to post text
+                        const currentText = postInput.value;
+                        postInput.value = currentText ? `${currentText}\n${locationText}` : locationText;
+                        
+                        alert('Location added to your post!');
+                    },
+                    (error) => {
+                        console.error('Error getting location:', error);
+                        alert('Could not get your location. Please ensure location services are enabled.');
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by your browser');
+            }
+        });
+
+        // Add tag functionality
+        addTagBtn.addEventListener('click', () => {
+            const tag = prompt('Enter a hashtag (without the # symbol):');
+            if (tag) {
+                const formattedTag = `#${tag.replace(/\s+/g, '')}`;
+                
+                // Append tag to post text
+                const currentText = postInput.value;
+                postInput.value = currentText ? `${currentText} ${formattedTag}` : formattedTag;
+            }
+        });
+
+        // Display media preview
+        function displayMediaPreview(file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const mediaItem = document.createElement('div');
+                mediaItem.className = 'media-item';
+                
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    mediaItem.appendChild(img);
+                } else if (file.type.startsWith('video/')) {
+                    const video = document.createElement('video');
+                    video.src = event.target.result;
+                    video.controls = true;
+                    mediaItem.appendChild(video);
+                }
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-media';
+                removeBtn.innerHTML = '&times;';
+                removeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mediaItem.remove();
+                    mediaFiles = mediaFiles.filter(f => f !== file);
+                });
+                
+                mediaItem.appendChild(removeBtn);
+                mediaPreview.appendChild(mediaItem);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Submit post functionality
+        postSubmitBtn.addEventListener('click', () => {
+            const postText = postInput.value.trim();
+            
+            if (!postText && mediaFiles.length === 0) {
+                alert('Please add some content to your post');
+                return;
+            }
+            
+            // In a real app, you would upload the media files and post text to a server
+            console.log('Creating new post:', {
+                text: postText,
+                media: mediaFiles.map(file => file.name)
+            });
+            
+            // Reset form
+            postInput.value = '';
+            mediaPreview.innerHTML = '';
+            mediaFiles = [];
+            
+            alert('Post created successfully!');
+        });
+
+        // Dark mode toggle
+        darkModeToggle.addEventListener('change', toggleDarkMode);
+
+        // Notification settings
+        notificationSettingsBtn.addEventListener('click', () => {
+            notificationSettingsModal.style.display = 'block';
+        });
+
+        saveNotificationSettings.addEventListener('click', () => {
+            currentUser.notificationSettings = {
+                followers: document.getElementById('follower-notifications').checked,
+                likes: document.getElementById('like-notifications').checked,
+                comments: document.getElementById('comment-notifications').checked,
+                mentions: document.getElementById('mention-notifications').checked,
+                messages: document.getElementById('message-notifications').checked,
+                emails: document.getElementById('email-notifications').checked
+            };
+            notificationSettingsModal.style.display = 'none';
+            alert('Notification settings saved successfully!');
+        });
+
+        // Privacy settings
+        privacySettingsBtn.addEventListener('click', () => {
+            privacySettingsModal.style.display = 'block';
+        });
+
+        savePrivacySettings.addEventListener('click', () => {
+            currentUser.privacySettings = {
+                posts: document.getElementById('post-privacy').value,
+                messages: document.getElementById('message-privacy').value,
+                connections: document.getElementById('connection-privacy').value,
+                activityStatus: document.getElementById('activity-status').checked
+            };
+            privacySettingsModal.style.display = 'none';
+            alert('Privacy settings saved successfully!');
+        });
+
+        // Change password
+        changePasswordBtn.addEventListener('click', () => {
+            changePasswordModal.style.display = 'block';
+        });
+
+        savePassword.addEventListener('click', () => {
+            const currentPass = document.getElementById('current-password').value;
+            const newPass = document.getElementById('new-password').value;
+            const confirmPass = document.getElementById('confirm-password').value;
+            
+            if (currentPass !== currentUser.password) {
+                alert('Current password is incorrect');
+                return;
+            }
+            
+            if (newPass !== confirmPass) {
+                alert('New passwords do not match');
+                return;
+            }
+            
+            currentUser.password = newPass;
+            changePasswordModal.style.display = 'none';
+            alert('Password changed successfully!');
+        });
+
+        cancelPasswordChange.addEventListener('click', () => {
+            changePasswordModal.style.display = 'none';
+        });
+
+        // Two-factor authentication
+        twoFactorBtn.addEventListener('click', () => {
+            if (currentUser.twoFactorEnabled) {
+                currentUser.twoFactorEnabled = false;
+                twoFactorBtn.textContent = 'Enable';
+                alert('Two-factor authentication has been disabled');
+            } else {
+                twoFactorModal.style.display = 'block';
+            }
+        });
+
+        verifyTwoFactor.addEventListener('click', () => {
+            const code = document.getElementById('two-factor-code').value;
+            // In a real app, you would verify the code with your backend
+            if (code.length === 6) {
+                currentUser.twoFactorEnabled = true;
+                twoFactorBtn.textContent = 'Disable';
+                twoFactorModal.style.display = 'none';
+                alert('Two-factor authentication has been enabled!');
+            } else {
+                alert('Please enter a valid 6-digit code');
+            }
+        });
+
+        cancelTwoFactor.addEventListener('click', () => {
+            twoFactorModal.style.display = 'none';
+        });
+
+        // Help center
+        helpCenterBtn.addEventListener('click', () => {
+            helpCenterModal.style.display = 'block';
+        });
+
+        closeHelpCenter.addEventListener('click', () => {
+            helpCenterModal.style.display = 'none';
+        });
+
+        // Report problem
+        reportProblemBtn.addEventListener('click', () => {
+            reportProblemModal.style.display = 'block';
+        });
+
+        submitReport.addEventListener('click', () => {
+            const problemType = document.getElementById('report-type').value;
+            const description = document.getElementById('report-description').value;
+            
+            if (!description) {
+                alert('Please describe the problem');
+                return;
+            }
+            
+            // In a real app, you would send this to your backend
+            console.log('Problem reported:', {
+                type: problemType,
+                description: description
+            });
+            
+            reportProblemModal.style.display = 'none';
+            alert('Thank you for reporting the problem. Our team will look into it.');
+        });
+
+        cancelReport.addEventListener('click', () => {
+            reportProblemModal.style.display = 'none';
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === commentModal) {
+                commentModal.style.display = 'none';
+            }
+            if (e.target === shareModal) {
+                shareModal.style.display = 'none';
+            }
+            if (e.target === editProfileModal) {
+                editProfileModal.style.display = 'none';
+            }
+            if (e.target === notificationSettingsModal) {
+                notificationSettingsModal.style.display = 'none';
+            }
+            if (e.target === privacySettingsModal) {
+                privacySettingsModal.style.display = 'none';
+            }
+            if (e.target === changePasswordModal) {
+                changePasswordModal.style.display = 'none';
+            }
+            if (e.target === twoFactorModal) {
+                twoFactorModal.style.display = 'none';
+            }
+            if (e.target === helpCenterModal) {
+                helpCenterModal.style.display = 'none';
+            }
+            if (e.target === reportProblemModal) {
+                reportProblemModal.style.display = 'none';
+            }
+        });
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
+
